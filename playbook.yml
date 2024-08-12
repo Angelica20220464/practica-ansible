@@ -1,0 +1,17 @@
+---
+- name: Configurar servidores web
+  hosts: servers
+  become: yes  # Permite la escalación de privilegios (sudo)
+  tasks:
+    - name: Actualizar paquetes y cache de APT
+      become: yes
+      ansible.builtin.apt:
+        update_cache: yes
+        name: "*"
+        state: latest
+
+    - name: Crear archivo de prueba
+      become: yes
+      ansible.builtin.file:
+        path: /home/vagrant/test_file.txt
+        state: touch
